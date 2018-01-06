@@ -61,8 +61,9 @@ void dfsAll()
 DAG의 정점을 배열하는 문제를 위상 정렬(Topological Sort)이라고 하는데, 가장 직관적인 방법은 들어오는 간선이 하나도 없는 정점들을 하나씩 찾아서 정렬 결과의 뒤에 붙이고, 그래프에서 이 정점을 지우는 과정을 반복하는 것이다.
 DFS를 사용하면 간단하게 이 문제를 해결할 수 있는데, dfsAll()을 수행하며 dfs()가 종료할 때마다 현재 정점의 번호를 기록하는 것이다. dfsAll()이 종료한 뒤 기록된 순서를 뒤집으면 위상 정렬 결과를 얻을 수 있다.
 * picture
-   * 그림을 보면,
+   * 그림을 보면, dfs가 종료될 때 정점을 기록하면, (5,4,3,2,1,7,8,9,6,10) 순으로 이를 역순으로 정렬하면 위상 정렬의 순서가 된다. 알고리즘 상에서 adj에는 인접 간선이 0으로 표현되어 있어도 각 정점은 존재하니, 굳이 표현하지 않아도 된다. 또한 책과 순서가 다른 이유는 여러가지 위상 정렬이 있기 때문.
 
+* DFS를 이용한 위상 정렬
 ```
 vector<int> visited, order;
 void dfs(int here)
@@ -75,7 +76,25 @@ void dfs(int here)
    }
    order.push_back(here);
 }
-vector<>
+// adj에 주어진 그래프를 위상 정렬한 결과를 반환한다.
+vector<int> topologicalSort()
+{
+   int n = adj.size();
+   visited = vector<int>(n , 0);
+   order.clear();
+   for(int i = 0; i < n; i++)
+      if(!visited[i])
+         dfs(i);
+   reverse(order.begin(), order.end());
+   // 만약 그래프가 DAG가 아니라면 정렬 결과에 역방향 간선이 있다.
+   // 그래프가 DAG가 아니라면 빈 벡터를 반환한다.hgf
+   for(int i = 0; i < n; i++)
+      for(int j = i + 1; j < n; j++)
+         if(adj[order[j]][order[i]])
+            return vector<int>();
+   // 없는 경우라면 깊이 우선 탐색에서 얻은 순서를 반환한다.
+   return order;
+}
 ```
 * Example Problem 1. [DICTIONARY](https://algospot.com/judge/problem/read/DICTIONARY)
 
