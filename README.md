@@ -35,7 +35,7 @@
   * %d 사이에 수를 넣으면, 그 길이 만큼 입력을 받게 된다. (1234 입력일 때, 1, 2, 3, 4 가능)
   * %s의 경우도 개수를 지정해서 입력받을 수 있다. 다만 입력받을 수 있는 것의 개수가 지정한 개수 보다 적으면 그만큼만 입력을 받게 된다.
 
-
+* 그 이외의 언어적 기초 [Confused C Concepts](https://github.com/HyunJunKwon/StudyingLanguages/blob/master/C/ConfusedConcepts.pdf)
 
 
 
