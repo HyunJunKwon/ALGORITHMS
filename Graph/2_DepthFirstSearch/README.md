@@ -105,7 +105,50 @@ vector<int> topologicalSort()
 <br/>
 
 ### 5. Eulerian Circuit
-    * Eulerian Trail
+
+* 그래프의 모든 간선을 정확히 한 번씩 지나서 시작점으로 돌아오는 경로를 찾는 문제. 한붓 그리기 문제로도 알려져있다.
+* 그래프의 간선들이 두 개 이상의 컴포넌트에 나뉘어 있는 경우는 당연히 오일러 서킷이 존재할 수 없을 것이다.
+
+* 경로의 시작점을 u, 끝점을 v라고 할 때,
+   
+   1. u != v인 경우, 항상 v는 홀수 개의 간선과 인접해 있을 겁니다. v를 지나가기 위해서는 v로 들어가는 데 하나, 나가는 데 하나의 간선이 필요하고, 때문에 v로 들어가서 더이상 나올 수 없다는 말은 인접한 간선의 수가 홀수라는 의미이기 때문이다.
+   
+   2. u = v인 경우, v에 인접한 간선의 수는 항상 짝수입니다. u에서 나가는 것으로 시작했으니, 들어온 뒤 다시 나갈 수 없다면 지금까지 사용한 간선의 수는 항상 짝수여야하기 때문이다. 따라서 그래프의 모든 정점들이 짝수점이어야만 오일러 서킷이 존재할 수 있다는 결론!
+
+* 오일러 서킷을 찾아내는 알고리즘 ```findRandomCircuit()```
+
+![EulerCircuit](https://github.com/HyunJunKwon/ALGORITHMS/blob/master/PictureMaterials/Graph_DFS_EulerianCircuit.jpg?raw=true)
+
+   * 그래프의 모든 정점은 짝수점이므로, 시작점 외의 다른 정점에서 종료하는 것은 불가능하다. 따라서 항상 시작점에서 끝나고 찾아낸 경로는 항상 서킷이 된다. 만약 이 서킷이 모든 간선을 지나친 서킷이 아니라면, 서킷의 각 정점들을 하나하나 돌아보며 아직 따라가지 않은 간선과 인접해 있는 정점들을 찾도록 한다. 이 점 v에서 다시 ```findRandomCircuit()```을 수행하면 새로운 서킷을 얻게된다. 처음에 찾았던 서킷을 v에서 찾은 서킷과 합치면 하나의 큰 서킷을 쉽게 만들 수 있다. 이와 같이 서킷이 모든 간선을 다 포함할 때까지 반복하면 오일러 서킷을 쉽게 찾을 수 있다.
+
+```
+// DFS를 이용한 오일러 서킷 찾기
+// 그래프의 인접 행렬 표현, adj[i][j] = i와 j사이의 간선의 수
+vector<vector<int> > adj;
+// 무향 그래프의 인접 행렬 adj가 주어질 때 오일러 서킷을 계산한다.
+// 결과로 얻어지는 circuit을 뒤집으면 오일러 서킷이 된다.
+void gerEulerCircuit(int here, vector<int>& circuit)
+{
+	for(int there = 0; there < adj.size(); there++)
+	{
+		while(adj[here][there] > 0)
+		{
+			// 양쪽 간선을 모두 지운다.
+			adj[here][there]--;
+			adj[there][here]--;
+			getEulerCircuit(there, circuit);
+		}
+	}
+	circuit.push_back(here);
+}
+```
+
+* 오일러 트레일(Eulerian Trail)
+   
+   * 오일러 서킷처럼 그래프의 모든 간선을 정확히 한 번씩 지나지만, 시작점과 끝점이 다른 경로를 말한다.
+   
+   * 점 a에서 시작해서 b에서 끝나는 오일러 트레일을 찾고 싶다면, a와 b 사이에 간선 (b, a)를 추가한 뒤 오일러 서킷을 찾는다. 그리고 (b, a)간선을 지워서 서킷을 끊으면 우리가 원하는 오일러 트레일을 얻을 수 있다.
+
 
 <br/>
 
