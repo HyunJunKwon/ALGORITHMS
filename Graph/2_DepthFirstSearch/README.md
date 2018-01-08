@@ -149,7 +149,7 @@ void gerEulerCircuit(int here, vector<int>& circuit)
    
    * 점 a에서 시작해서 b에서 끝나는 오일러 트레일을 찾고 싶다면, a와 b 사이에 간선 (b, a)를 추가한 뒤 오일러 서킷을 찾는다. 그리고 (b, a)간선을 지워서 서킷을 끊으면 우리가 원하는 오일러 트레일을 얻을 수 있다.
 
-
+* Example Problem 1. [WORDCHAIN](https://algospot.com/judge/problem/read/WORDCHAIN)
 <br/>
 
 ### 6. 이론적 배경과 응용
