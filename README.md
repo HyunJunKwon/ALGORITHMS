@@ -37,9 +37,9 @@
 
 * 그 이외의 언어적 기초 [Confused C Concepts](https://github.com/HyunJunKwon/StudyingLanguages/blob/master/C/ConfusedConcepts.pdf)
 
-
-
-
+* References: 
+	* 프로그래밍 대회에서 배우는 알고리즘 문제 해결 전략, 구종만
+	* 코드플러스 강의, 최백준
 
 
 
